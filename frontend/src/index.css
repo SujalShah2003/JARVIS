@@ -1,0 +1,98 @@
+:root {
+  /* Allow the React background layer to own the page background */
+  --mantine-color-body: transparent;
+}
+
+body {
+  background-color: transparent;
+  color: white;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: block;
+}
+
+/* Global background frame */
+.appFrame {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.appContent {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 140px; /* keep content above the grass */
+}
+
+.pixelSnow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 700px at 50% 0%, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7));
+}
+
+.snowflake {
+  position: absolute;
+  top: -12vh;
+  left: var(--snow-left);
+  width: var(--snow-size);
+  height: var(--snow-size);
+  opacity: var(--snow-opacity);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1px;
+  animation: snow-fall var(--snow-duration) linear var(--snow-delay) infinite;
+  will-change: transform;
+}
+
+@keyframes snow-fall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--snow-drift), 120vh, 0);
+  }
+}
+
+.grassGround {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--mantine-color-green-9),
+    var(--mantine-color-green-7)
+  );
+}
+
+.grassGround::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -22px;
+  height: 22px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--mantine-color-green-7) 0 14px,
+      var(--mantine-color-green-6) 14px 28px
+    );
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+}

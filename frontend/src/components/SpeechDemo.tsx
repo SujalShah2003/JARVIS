@@ -115,7 +115,7 @@ export const SpeechDemo = ({
         </Paper>
 
         {/* Supported Commands */}
-        <Stack gap="lg">
+        <Stack gap="lg" pb='lg'>
           <SupportedCommandsList />
         </Stack>
       </Stack>

@@ -1,6 +1,6 @@
 import { Button, Group } from "@mantine/core";
 
-export type AppMode = "speech" | "qa";
+export type AppMode = "command" | "qa";
 
 export const ModeToggle = ({
   mode,
@@ -13,11 +13,11 @@ export const ModeToggle = ({
     <Group justify="center" gap="sm">
       <Button
         size="md"
-        variant={mode === "speech" ? "filled" : "light"}
-        color={mode === "speech" ? "violet" : "gray"}
-        onClick={() => onModeChange("speech")}
+        variant={mode === "command" ? "filled" : "light"}
+        color={mode === "command" ? "violet" : "gray"}
+        onClick={() => onModeChange("command")}
       >
-        Speech Recognition
+        Command Mode
       </Button>
       <Button
         size="md"
@@ -25,7 +25,7 @@ export const ModeToggle = ({
         color={mode === "qa" ? "violet" : "gray"}
         onClick={() => onModeChange("qa")}
       >
-        QA
+        QA Mode
       </Button>
     </Group>
   );

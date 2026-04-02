@@ -5,7 +5,7 @@ import { QAPanel } from "./components/QAPanel";
 import type { AppMode } from "./components/ModeToggle";
 
 const App = () => {
-  const [mode, setMode] = useState<AppMode>("speech");
+  const [mode, setMode] = useState<AppMode>("command");
 
   return (
     <div className="appFrame">
@@ -13,7 +13,7 @@ const App = () => {
       {/* <div className="grassGround" aria-hidden="true" /> */}
 
       <div className="appContent">
-        {mode === "speech" ? (
+        {mode === "command" ? (
           <SpeechDemo mode={mode} onModeChange={setMode} />
         ) : (
           <QAPanel mode={mode} onModeChange={setMode} />

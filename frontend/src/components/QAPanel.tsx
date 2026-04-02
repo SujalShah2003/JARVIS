@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Container,
@@ -76,6 +76,7 @@ export const QAPanel = ({
       } else {
         setAnswer(result.reply || "");
       }
+      resetTranscript();
     } catch (e: any) {
       setApiError(String(e?.message || e));
       setAnswer("");
@@ -84,8 +85,19 @@ export const QAPanel = ({
     }
   };
 
+  const idleTimerRef = useRef<number | null>(null);
+
+  const clearIdleTimer = () => {
+    if (idleTimerRef.current !== null) {
+      window.clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = null;
+    }
+  };
+
   const handleStartListening = () => {
     resetTranscript();
+    setTyped("");
+    clearIdleTimer();
     startListening();
   };
 
@@ -94,8 +106,28 @@ export const QAPanel = ({
     setTyped("");
     setAnswer("");
     setApiError(null);
+    clearIdleTimer();
     window.speechSynthesis?.cancel?.();
   };
+
+  useEffect(() => {
+    const speechInput = `${transcript} ${interimTranscript}`.trim();
+    if (!speechInput) {
+      return;
+    }
+
+    clearIdleTimer();
+
+    idleTimerRef.current = window.setTimeout(() => {
+      if (!isAsking && (speechInput || typed)) {
+        onAsk();
+      }
+    }, 2000);
+
+    return () => {
+      clearIdleTimer();
+    };
+  }, [transcript, interimTranscript, typed, isAsking, onAsk]);
 
   return (
     <Container
@@ -146,7 +178,7 @@ export const QAPanel = ({
                   autosize
                   minRows={4}
                   my={8}
-                  value={typed}
+                  value={typed || transcript || interimTranscript}
                   styles={{
                     label:{
                       marginBottom : 10
@@ -169,9 +201,11 @@ export const QAPanel = ({
               <Stack style={{ flex: 1, minWidth: 280, flexWrap : 'wrap' }} gap="md">
                 <Paper withBorder p={{ base: "md", sm: "lg" }} radius="lg" >
                   <Stack gap="xs">
-                    <Text fw={600}>Speech mode</Text>
+                    <Text fw={600}>Response</Text>
                     {apiError ? (
                       <Text c="red">{apiError}</Text>
+                    ) : answer ? (
+                      <Text>{answer}</Text>
                     ) : (
                       <Text c="dimmed">
                         Jarvis will speak the answer automatically. You can continue asking questions.

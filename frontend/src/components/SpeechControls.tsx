@@ -1,4 +1,4 @@
-import { Button, Group, Badge, ThemeIcon } from "@mantine/core";
+import { Button, Group, Badge, ThemeIcon, Flex } from "@mantine/core";
 import { IconMicrophone, IconMicrophoneOff } from "@tabler/icons-react";
 
 interface SpeechControlsProps {
@@ -54,7 +54,7 @@ export const SpeechControls = ({
       </Group>
 
       {/* Control Buttons */}
-      <Group grow>
+      <Flex gap='sm' wrap={{base:'wrap',sm:'nowrap'}}>
         <Button
           size="lg"
           leftSection={isListening ? <IconMicrophoneOff /> : <IconMicrophone />}
@@ -74,7 +74,7 @@ export const SpeechControls = ({
         >
           Clear
         </Button>
-      </Group>
+      </Flex>
     </>
   );
 };

@@ -7,7 +7,6 @@ import {
   Stack,
   Text,
   Textarea,
-  Title,
 } from "@mantine/core";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 import { chat } from "../services/jarvisApi";
@@ -99,7 +98,15 @@ export const QAPanel = ({
   };
 
   return (
-    <Container size="lg" py={{ base: 20, sm: 40 }} px={{ base: 20, sm: 40 }}>
+    <Container
+      size="lg"
+      py={{ base: 20, sm: 40 }}
+      px={{ base: 20, sm: 40 }}
+      h="100vh"
+      style={{
+        alignContent: "center",
+      }}
+    >
       <Stack gap="lg">
         <SpeechHeader
           title="Jarvis Q&A"
@@ -119,7 +126,6 @@ export const QAPanel = ({
 
         <Paper shadow="md" p={{ base: "lg", sm: "xl" }} radius="lg">
           <Stack gap="lg">
-            <Title order={3}>Q&A</Title>
 
             <Group align="flex-start" gap="lg" wrap="wrap">
               <Stack style={{ flex: 1, minWidth: 280 }} gap="md">
@@ -137,8 +143,15 @@ export const QAPanel = ({
                 <Textarea
                   label="Type your question"
                   placeholder="e.g. Explain what this app does"
-                  minRows={3}
+                  autosize
+                  minRows={4}
+                  my={8}
                   value={typed}
+                  styles={{
+                    label:{
+                      marginBottom : 10
+                    }
+                  }}
                   onChange={(e) => setTyped(e.currentTarget.value)}
                 />
 
@@ -153,39 +166,19 @@ export const QAPanel = ({
                 </Button>
               </Stack>
 
-              <Stack style={{ flex: 1, minWidth: 280 }} gap="md">
-                <Paper withBorder p={{ base: "md", sm: "lg" }} radius="lg">
+              <Stack style={{ flex: 1, minWidth: 280, flexWrap : 'wrap' }} gap="md">
+                <Paper withBorder p={{ base: "md", sm: "lg" }} radius="lg" >
                   <Stack gap="xs">
-                    <Text fw={600}>Answer</Text>
+                    <Text fw={600}>Speech mode</Text>
                     {apiError ? (
                       <Text c="red">{apiError}</Text>
-                    ) : answer ? (
-                      <Text>{answer}</Text>
                     ) : (
                       <Text c="dimmed">
-                        Ask a question to see the response here.
+                        Jarvis will speak the answer automatically. You can continue asking questions.
                       </Text>
                     )}
                   </Stack>
                 </Paper>
-
-                <Group justify="space-between">
-                  <Button
-                    variant="light"
-                    onClick={() => speak(answer)}
-                    disabled={!answer}
-                  >
-                    Speak Answer
-                  </Button>
-                  <Button
-                    variant="light"
-                    color="gray"
-                    onClick={() => window.speechSynthesis?.cancel?.()}
-                    disabled={!answer}
-                  >
-                    Stop Speaking
-                  </Button>
-                </Group>
               </Stack>
             </Group>
           </Stack>

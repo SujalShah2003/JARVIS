@@ -59,7 +59,14 @@ export const SpeechDemo = ({
 
   if (!isSupported) {
     return (
-      <Container size="md" py={40}>
+      <Container
+        size="md"
+        py={40}
+        h="100vh"
+        style={{
+          alignContent: "center",
+        }}
+      >
         <Alert icon={<IconAlertCircle />} title="Not Supported" color="red">
           Speech Recognition is not supported in your browser. Please use
           Chrome, Firefox, or Edge.
@@ -69,7 +76,15 @@ export const SpeechDemo = ({
   }
 
   return (
-    <Container size="lg" py={{ base: 20, sm: 40 }} px={{ base: 20, sm: 40 }}>
+    <Container
+      size="lg"
+      py={{ base: 20, sm: 40 }}
+      px={{ base: 20, sm: 40 }}
+      h="100vh"
+      style={{
+        alignContent: "center",
+      }}
+    >
       <Stack gap="lg">
         <SpeechHeader />
 

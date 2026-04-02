@@ -14,13 +14,7 @@ export const SpeechHeader = ({
       <div style={{ textAlign: "center", paddingLeft: "60px" }}>
         <Group gap={20} justify="center" align="center">
           <Image src="/favicon.svg" alt="Jarvis Logo" w={40} h={40} />
-          <Text
-            fz={{ base: "xl", sm: "30px" }}
-            fw={800}
-            mb="xs"
-            ta="center"
-            tt="uppercase"
-          >
+          <Text fz="30px" fw={800} mb="xs" ta="center" tt="uppercase">
             {title}
           </Text>
         </Group>

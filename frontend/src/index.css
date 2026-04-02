@@ -31,7 +31,7 @@ body {
 .appContent {
   position: relative;
   z-index: 2;
-  padding-bottom: 140px; /* keep content above the grass */
+  /* padding-bottom removed per user request (no extra bottom gap) */
 }
 
 .pixelSnow {

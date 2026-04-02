@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="appFrame">
       <PixelSnowBackground />
-      <div className="grassGround" aria-hidden="true" />
+      {/* <div className="grassGround" aria-hidden="true" /> */}
 
       <div className="appContent">
         {mode === "speech" ? (

@@ -43,7 +43,7 @@ export const SpeechControls = ({
                   }}
                 />
               ) : (
-                "●"
+                <div style={{ marginBottom: 2 }}>●</div>
               )}
             </ThemeIcon>
           }
@@ -54,7 +54,7 @@ export const SpeechControls = ({
       </Group>
 
       {/* Control Buttons */}
-      <Flex gap='sm' wrap={{base:'wrap',sm:'nowrap'}}>
+      <Flex gap="sm" wrap={{ base: "wrap", sm: "nowrap" }}>
         <Button
           size="lg"
           leftSection={isListening ? <IconMicrophoneOff /> : <IconMicrophone />}

@@ -48,7 +48,6 @@ export const QAPanel = ({
     language: "en-US",
   });
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [typed, setTyped] = useState("");
   const [answer, setAnswer] = useState<string>("");
   const [isAsking, setIsAsking] = useState(false);
@@ -63,24 +62,6 @@ export const QAPanel = ({
     if (answer) speak(answer);
   }, [answer]);
 
-  useEffect(() => {
-    const handleSpeechStart = () => setIsSpeaking(true);
-    const handleSpeechEnd = () => setIsSpeaking(false);
-
-    if (window.speechSynthesis) {
-      window.speechSynthesis.addEventListener('start', handleSpeechStart);
-      window.speechSynthesis.addEventListener('end', handleSpeechEnd);
-      window.speechSynthesis.addEventListener('error', handleSpeechEnd);
-    }
-
-    return () => {
-      if (window.speechSynthesis) {
-        window.speechSynthesis.removeEventListener('start', handleSpeechStart);
-        window.speechSynthesis.removeEventListener('end', handleSpeechEnd);
-        window.speechSynthesis.removeEventListener('error', handleSpeechEnd);
-      }
-    };
-  }, []);
 
   const onAsk = async () => {
     const text = effectiveQuestion;
@@ -225,7 +206,6 @@ export const QAPanel = ({
                 size="xs"
                 variant="outline"
                 color="red"
-                disabled={!isSpeaking}
                 onClick={() => window.speechSynthesis?.cancel?.()}
               >
                 Stop Speech

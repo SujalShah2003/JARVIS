@@ -178,74 +178,68 @@ export const QAPanel = ({
 
         <Paper shadow="md" p={{ base: "lg", sm: "xl" }} radius="lg">
           <Stack gap="lg">
+            <SpeechControls
+              isListening={isListening}
+              error={error}
+              hasTranscript={
+                !!typed.trim() || !!transcript || !!interimTranscript
+              }
+              onStartListening={handleStartListening}
+              onStopListening={stopListening}
+              onClear={handleClear}
+            />
 
-            <Group align="flex-start" gap="lg" wrap="wrap">
-              <Stack style={{ flex: 1, minWidth: 280 }} gap="md">
-                <SpeechControls
-                  isListening={isListening}
-                  error={error}
-                  hasTranscript={
-                    !!typed.trim() || !!transcript || !!interimTranscript
-                  }
-                  onStartListening={handleStartListening}
-                  onStopListening={stopListening}
-                  onClear={handleClear}
-                />
+            <Textarea
+              label="Type your question Or Speak and wait for 2 seconds"
+              placeholder="e.g. Explain what this app does"
+              autosize
+              minRows={4}
+              my={8}
+              value={typed || transcript || interimTranscript}
+              styles={{
+                label: {
+                  marginBottom: 10,
+                  color: "var(--mantine-color-gray-5)",
+                },
+              }}
+              onChange={(e) => setTyped(e.currentTarget.value)}
+            />
 
-                <Textarea
-                  label="Type your question"
-                  placeholder="e.g. Explain what this app does"
-                  autosize
-                  minRows={4}
-                  my={8}
-                  value={typed || transcript || interimTranscript}
-                  styles={{
-                    label:{
-                      marginBottom : 10
-                    }
-                  }}
-                  onChange={(e) => setTyped(e.currentTarget.value)}
-                />
+            <Button
+              size="lg"
+              color="violet"
+              onClick={onAsk}
+              loading={isAsking}
+              disabled={!effectiveQuestion}
+            >
+              Ask
+            </Button>
+          </Stack>
+        </Paper>
 
-                <Button
-                  size="lg"
-                  color="violet"
-                  onClick={onAsk}
-                  loading={isAsking}
-                  disabled={!effectiveQuestion}
-                >
-                  Ask
-                </Button>
-              </Stack>
-
-              <Stack style={{ flex: 1, minWidth: 280, flexWrap : 'wrap' }} gap="md">
-                <Paper withBorder p={{ base: "md", sm: "lg" }} radius="lg" >
-                  <Stack gap="xs">
-                    <Group justify="space-between" align="center">
-                      <Text fw={600}>Response</Text>
-                      <Button
-                        size="xs"
-                        variant="outline"
-                        color="red"
-                        disabled={!isSpeaking}
-                        onClick={() => window.speechSynthesis?.cancel?.()}
-                      >
-                        Stop Speech
-                      </Button>
-                    </Group>
-                    {apiError ? (
-                      <Text c="red">{apiError}</Text>
-                    ) : answer ? (
-                      <Text>{answer}</Text>
-                    ) : (
-                      <Text c="dimmed">
-                        Jarvis will speak the answer automatically. You can continue asking questions.
-                      </Text>
-                    )}
-                  </Stack>
-                </Paper>
-              </Stack>
+        <Paper shadow="md" p={{ base: "md", sm: "lg" }} radius="lg" mb='lg'>
+          <Stack gap="xs" >
+            <Group justify="space-between" align="center">
+              <Text fw={600}>Response</Text>
+              <Button
+                size="xs"
+                variant="outline"
+                color="red"
+                disabled={!isSpeaking}
+                onClick={() => window.speechSynthesis?.cancel?.()}
+              >
+                Stop Speech
+              </Button>
             </Group>
+            {apiError ? (
+              <Text c="red">{apiError}</Text>
+            ) : answer ? (
+              <Text>{answer}</Text>
+            ) : (
+              <Text c="dimmed">
+                Jarvis will speak the answer automatically. You can continue asking questions.
+              </Text>
+            )}
           </Stack>
         </Paper>
       </Stack>

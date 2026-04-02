@@ -201,7 +201,17 @@ export const QAPanel = ({
               <Stack style={{ flex: 1, minWidth: 280, flexWrap : 'wrap' }} gap="md">
                 <Paper withBorder p={{ base: "md", sm: "lg" }} radius="lg" >
                   <Stack gap="xs">
-                    <Text fw={600}>Response</Text>
+                    <Group justify="space-between" align="center">
+                      <Text fw={600}>Response</Text>
+                      <Button
+                        size="xs"
+                        variant="outline"
+                        color="red"
+                        onClick={() => window.speechSynthesis?.cancel?.()}
+                      >
+                        Stop Speech
+                      </Button>
+                    </Group>
                     {apiError ? (
                       <Text c="red">{apiError}</Text>
                     ) : answer ? (

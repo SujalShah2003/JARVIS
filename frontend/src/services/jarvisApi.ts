@@ -7,7 +7,7 @@ export type ChatResponse = {
 
 export async function chat(text: string): Promise<ChatResponse> {
   try {
-    const response = await fetch("/api/chat", {
+    const response = await fetch("https://jarvis-brs3.onrender.com/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text }),
